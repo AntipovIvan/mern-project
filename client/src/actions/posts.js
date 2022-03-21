@@ -3,6 +3,7 @@ import {
   CREATE,
   UPDATE,
   DELETE,
+  LIKE,
 } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
@@ -48,10 +49,12 @@ export const deletePost = (id) => async (dispatch) => {
 };
 
 export const likePost = (id) => async (dispatch) => {
-  try {
-    const { data } = await api.likePost(id);
+  const user = JSON.parse(localStorage.getItem('profile'));
 
-    dispatch({ type: UPDATE, payload: data });
+  try {
+    const { data } = await api.likePost(id, user?.token);
+
+    dispatch({ type: LIKE, payload: data });
   } catch (error) {
     console.log(error);
   }
