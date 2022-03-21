@@ -7,47 +7,25 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
-import { useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { signin, signup } from '../../actions/auth';
 
 import Icon from './icon';
 import Input from './Input';
 import useStyles from './styles';
 
-const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
-
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    if (isSignup) {
-      dispatch(signup(formData, navigate));
-    } else {
-      dispatch(signin(formData, navigate));
-    }
-  };
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleSubmit = () => {};
+  const handleChange = () => {};
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
     handleShowPassword(false);
@@ -59,8 +37,6 @@ const Auth = () => {
     const token = res?.tokenId;
     try {
       dispatch({ type: 'AUTH', data: { result, token } });
-
-      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -91,8 +67,8 @@ const Auth = () => {
                     half
                   />
                   <Input
-                    name="lastName"
-                    label="Last Name"
+                    name="firstName"
+                    label="First Name"
                     handleChange={handleChange}
                     half
                   />
