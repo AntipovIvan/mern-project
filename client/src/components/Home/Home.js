@@ -8,7 +8,6 @@ import {
   TextField,
   Button,
   Chip,
-  Autocomplete,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -78,7 +77,7 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Autocomplete
+              <Chip
                 style={{ margin: '10px 0' }}
                 value={tags}
                 onAdd={handleAdd}
